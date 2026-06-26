@@ -2580,6 +2580,7 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
                   <div class="sender-placeholder-item">@ 指定分析数据源，/ 呼出快捷面板</div>
                   <div class="sender-placeholder-item">让九思总结常用分析方法并沉淀为技能</div>
                   <div class="sender-placeholder-item">开启计划模式，先拆解目标再分析</div>
+                  <div class="sender-placeholder-item">输入分析需求，也可以在左下角指定技能</div>
                 </div>
               </div>
               <div class="toolbar">
@@ -3662,8 +3663,16 @@ button { font-family: inherit; border: none; background: none; cursor: pointer; 
   let senderPlaceholderIndex = 0;
   setInterval(() => {
     if (chatFeedbackInput.value) return;
-    senderPlaceholderIndex = (senderPlaceholderIndex + 1) % senderPlaceholderTrack.children.length;
+    senderPlaceholderTrack.style.transition = 'transform .34s cubic-bezier(.22,.61,.36,1)';
+    senderPlaceholderIndex += 1;
     senderPlaceholderTrack.style.transform = `translateY(${-senderPlaceholderIndex * 22}px)`;
+    if (senderPlaceholderIndex === senderPlaceholderTrack.children.length - 1) {
+      setTimeout(() => {
+        senderPlaceholderTrack.style.transition = 'none';
+        senderPlaceholderTrack.style.transform = 'translateY(0)';
+        senderPlaceholderIndex = 0;
+      }, 380);
+    }
   }, 2600);
   requestAnimationFrame(() => {
     chatFeedbackInput.focus();
